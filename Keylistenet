@@ -1,0 +1,13 @@
+emailField.addKeyListener(new KeyAdapter() {
+    @Override
+    public void keyReleased(KeyEvent e) {
+        String email = emailField.getText().trim();
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+        
+        if (!email.matches(emailRegex)) {
+            emailField.setForeground(Color.RED); // Highlight invalid input
+        } else {
+            emailField.setForeground(Color.BLACK); // Reset color for valid input
+        }
+    }
+});
