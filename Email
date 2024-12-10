@@ -1,0 +1,53 @@
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
+
+public class EmailValidationExample {
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Email Validation");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 200);
+
+        // Create email field and label
+        JPanel panel = new JPanel(new GridLayout(2, 1));
+        JTextField emailField = new JTextField();
+        JLabel feedbackLabel = new JLabel("Enter a valid email address.");
+
+        // Add DocumentListener to email field
+        emailField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateEmail();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateEmail();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateEmail();
+            }
+
+            private void validateEmail() {
+                String email = emailField.getText();
+                String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+                if (email.matches(emailRegex)) {
+                    feedbackLabel.setText("Valid email address.");
+                    feedbackLabel.setForeground(Color.GREEN);
+                } else {
+                    feedbackLabel.setText("Invalid email address.");
+                    feedbackLabel.setForeground(Color.RED);
+                }
+            }
+        });
+
+        panel.add(emailField);
+        panel.add(feedbackLabel);
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+}
